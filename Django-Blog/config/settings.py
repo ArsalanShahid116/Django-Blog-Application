@@ -73,8 +73,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # SMTP server settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'arsalan.shahid@ucdconnect.ie'
-EMAIL_HOST_PASSWORD = 'Arsiii_116'
+EMAIL_HOST_USER = 'username@gmail.com'
+EMAIL_HOST_PASSWORD = 'your_password'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
