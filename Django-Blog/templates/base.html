@@ -15,7 +15,18 @@
 	<div class="navbar-brand">DjangoBlog</div>
 	<a class="nav-link" href="{% url 'blog:post_list' %}">
 		Posts
-	 </a>													                </nav>
+	 </a>
+	 <div>
+	 <span class="user">
+		 {% if request.user.is_authenticated %}
+		 Hello {{ user }},
+		 <a href="{% url "logout" %}">Logout</a>
+		 {% else %}
+		 <a href="{% url "login" %}">Log-in</a>
+		 {% endif %}
+	 </span>
+	 </div>
+	</nav>
 	</header>
 	<br />
 	<br />

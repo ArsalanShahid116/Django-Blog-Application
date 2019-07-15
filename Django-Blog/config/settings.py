@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'account',
     'taggit',
     'blog',
     'django.contrib.postgres',
@@ -71,6 +72,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+
+# Login and logout urls
+LOGIN_REDIRECT_URL = '/blog'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
 
 # SMTP server settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
