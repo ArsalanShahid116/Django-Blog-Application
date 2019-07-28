@@ -1,11 +1,36 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Post, Comment
-from .forms import EmailPostForm, CommentForm, SearchForm
+from .forms import EmailPostForm, CommentForm, SearchForm, PostForm
 from django.core.mail import send_mail
 from taggit.models import Tag
 from django.db.models import Count
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
+from django.views.generic import CreateView
+from django.shortcuts import redirect
+from django.urls import reverse
+
+class PostCreate(CreateView):
+    template_name = 'blog/post_form.html'
+    form_class = PostForm
+    success_url = 'blog:post_list'
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['author'] = self.request.user.id
+        return initial
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.save()
+        post_list_url = reverse('blog:post_list')
+        return redirect(
+                to=post_list_url)
+
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super(PostCreate, self).get_form_kwargs(*args, **kwargs)
+        kwargs['author'] = self.request.user
+        return kwargs
 
 def post_share(request, post_id):
     post = get_object_or_404(Post, id=post_id, status='published')
